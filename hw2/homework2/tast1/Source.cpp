@@ -81,7 +81,7 @@ void expand(int& count, int& cap, int*& arr)
 		 cout << arr[i] << " ";
 	 cout << endl;
  }
- void choise(int*& arr, int& count, int& in, int& cap)
+ void choiсe(int*& arr, int& count, int& in, int& cap)
  {
 	 switch (in)
 	 {
@@ -154,7 +154,7 @@ int main()
 			<< endl << "6 - Вывести массив в обратном порядке" 
 			<< endl;
 		cin >> in;
-		choise(arr, count, in, cap);
+		choiсe(arr, count, in, cap);
 	}
 	delete[] arr;
 	return 0;
