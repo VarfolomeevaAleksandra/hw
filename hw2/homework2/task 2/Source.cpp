@@ -1,14 +1,16 @@
 #include<iostream>
+#include<math.h>
 
 using namespace std;
 
-void print(int& count, int*& arr)
+
+void print(int*& arr, int& count)
 {
 	for (int i = 0; i < count; ++i)
 		cout << arr[i] << " ";
 	cout << endl;
 }
-void expand(int& count, int& cap, int*& arr)
+void expand(int*& arr, int& count, int& cap)
 {
 	cap *= 2;
 	int* temp = new int[cap];
@@ -19,31 +21,34 @@ void expand(int& count, int& cap, int*& arr)
 	delete[] arr;
 	arr = temp;
 }
-void add(int& count, int& cap, int*& arr)
+void add(int*& arr, int& count, int& cap)
 {
-	int a,b,n;
+	int a;
+	int b; 
+	int n;
 	int i;
 	cout << "Введите промежуток [a,b] и количество n" << endl;
 	cin >> a >> b >> n;
-	for (i = count; i < (count + n); ++i)
+	for (i = 0; i < n; ++i)
 	{
-		arr[i] = rand() % (b - a + 1) + a;
+		if (count == cap) expand(arr, count, cap);
+		arr[count] = rand() % (b - a + 1) + a;
 		++count;
 	}
-	print(count, arr);
+	print(arr, count);
 }
-void reverse(int& count, int*& arr)
+void reverse(int*& arr, int& count)
 {
-	int c;
+	int c = 0;
 	for (int i = 0; i <= (count / 2); ++i)
 	{
 		c = arr[i];
 		arr[i] = arr[count - i];
-		arr[count - i] = arr[i];
+		arr[count - i] = c;
 	}
-	print(count, arr);
+	print(arr, count);
 }
-void pair_reverse(int& count, int*& arr)
+void pair_reverse(int*& arr, int& count)
 {
 	int i;
 	int c;
@@ -55,9 +60,9 @@ void pair_reverse(int& count, int*& arr)
 		arr[i] = arr[i + 1];
 		arr[i + 1] = c;
 	}
-	print(count, arr);
+	print(arr, count);
 }
-void cyclic_shift(int& count, int*& arr)
+void cyclic_shift(int*& arr, int& count)
 {
 	int t;
 	t = arr[count - 1];
@@ -66,29 +71,37 @@ void cyclic_shift(int& count, int*& arr)
 		arr[j + 1] = arr[j];
 	}
 	arr[0] = t;
-	print(count, arr);
+	print(arr, count);
 }
-void half_reverse(int& count, int*& arr)
+void half_reverse(int*& arr, int& count)
 {
 	int n;
 	int c;
 	cout << "Введите число, делящее массив" << endl;
 	cin >> n;
-	for (int i = 0; i < (n / 2); ++i)
+	int n_l = n - 1;
+	int n_r = n;
+	int i = 0;
+	while (i < n_l)
 	{
 		c = arr[i];
-		arr[i] = arr[n - i];
-		arr[n - i] = arr[i];
+		arr[i] = arr[n_l];
+		arr[n_l] = c;
+		i++;
+		n_l--;
 	}
-	for (int i = n; i <= (((count - n)  / 2) + n); ++i)
+	int new_count = count;
+	while (n_r < new_count)
 	{
-		c = arr[i];
-		arr[i] = arr[count - i];
-		arr[count - i] = arr[i];
+		c = arr[n_r];
+		arr[n_r] = arr[new_count - 1];
+		arr[new_count - 1] = c;
+		n_r++;
+		new_count--;
 	}
-	print(count, arr);
+	print(arr, count);
 }
-void choise(int*& arr, int& count, int& in, int& cap)
+void choice(int*& arr, int& count, int& in, int& cap)
 {
 	switch (in)
 	{
@@ -98,29 +111,45 @@ void choise(int*& arr, int& count, int& in, int& cap)
 	}
 	case 1:
 	{
-		add(count, cap, *&arr);
+		add(arr, count, cap);
 		break;
 	}
 	case 2:
 	{
-		reverse(count, *&arr);
+		reverse(arr, count);
 		break;
 	}
 	case 3:
 	{
-		pair_reverse(count, *&arr);
+		pair_reverse(arr, count);
 		break;
 	}
 	case 4:
 	{
-		cyclic_shift(count, *&arr);
+		cyclic_shift(arr, count);
 		break;
 	}
 	case 5:
 	{
-		half_reverse(count, *&arr);
+		half_reverse(arr, count);
 		break;
 	}
+	}
+}
+void menu(int*& arr, int& count, int& cap)
+{
+	int in = -1;
+	while (in != 0)
+	{
+		cout << "0 - Выход из программы" <<
+			endl << "1 - Добавить в массив n случайных чисел в промежутке от a до b(n, a, b вводится с клавиатуры)" <<
+			endl << "2 - Развернуть массив" <<
+			endl << "3 - Поменять элементы массива местами в парах.Если число элементов нечетно, последний элемент остается на своем месте" <<
+			endl << "4 - Циклический сдвиг вправо на 1" <<
+			endl << "5 - Развернуть две половинки массива.n - индекс элемента, разделяющего половинки" <<
+			endl;
+		cin >> in;
+		choice(arr, count, in, cap);
 	}
 }
 int main()
@@ -139,25 +168,16 @@ int main()
 		{
 			break;
 		}
-		expand(count, cap, arr);
+		if (count == cap)
+		{
+			expand(arr, count, cap);
+		}
 		arr[count] = x;
 		count++;
 	}
 	cout << endl;
-	int in = -1;	
-	while (in != 0)
-	{
-		cout << "0 - Выход из программы" <<
-			endl << "1 - Добавить в массив n случайных чисел в промежутке от a до b(n, a, b вводится с клавиатуры)" <<
-			endl << "2 - Развернуть массив" <<
-			endl << "3 - Поменять элементы массива местами в парах.Если число элементов нечетно, последний элемент остается на своем месте" <<
-			endl << "4 - Циклический сдвиг вправо на 1" <<
-			endl << "5 - Развернуть две половинки массива.n - индекс элемента, разделяющего половинки" <<
-			endl;
-		cin >> in;
-		choise(arr, count, in, cap);
-	}
+	menu(arr, count, cap);
 	delete[] arr;
-	return 0;	
+	return 0;
 }
 

@@ -2,61 +2,60 @@
 
 using namespace std;
 
-void expand(int& count, int& cap, int*& arr)
+void expand(int* arr, int& count, int& cap)
 {
-	if (count == cap)
+
+	cap *= 2;
+	int* temp = new int[cap];
+	for (int i = 0; i < count; ++i)
 	{
-		cap *= 2;
-		int* temp = new int[cap];
-		for (int i = 0; i < count; ++i)
-		{
-			temp[i] = arr[i];
-		}
-		delete[] arr;
-		arr = temp;
+		temp[i] = arr[i];
 	}
+	delete[] arr;
+	arr = temp;
 }
- void add1 (int& count, int& cap, int*& arr)
+void add1(int* arr, int& count, int& cap)
 {
-	 int x;
-	 cout << "Введите число" << endl;
-	 cin >> x;
-	 expand(count, cap, arr);
-	 arr[count] = x;
-	 ++count;
+	int x;
+	cout << "Введите число" << endl;
+	cin >> x;
+	if (count == cap)
+		expand(arr, count, cap);
+	arr[count] = x;
+	++count;
 }
- void print(int& count, int*& arr)
- {
-	 int i;
-	 for (i = 0; i < count; ++i)
-		 cout << arr[i] << " ";
-	 cout << endl;
- }
- void max(int& count, int*& arr)
- {
-	 int i;
-	 int max;
-	 int num;
-	 max = arr[0];
-	 num = 0;
-	 for (i = 0; i <= count; ++i)
-	 {
-		 if (arr[i] > max)
-		 {
-			 max = arr[i];
-			 num = i;
-		 }
-	 }
-	 cout << "Номер(а) максимального(ых) элемента(ов) " << endl;
-	 for (i = 0; i < count; ++i)
-	 {
-		 if (max == arr[i])
-			 cout << i << " ";
-	 }
-	 cout << endl;
- }
- void min(int& count, int*& arr)
- {
+void print(int* arr, int& count)
+{
+	int i;
+	for (i = 0; i < count; ++i)
+		cout << arr[i] << " ";
+	cout << endl;
+}
+void max(int* arr, int& count)
+{
+	int i;
+	int max;
+	int num;
+	max = arr[0];
+	num = 0;
+	for (i = 1; i <= count; ++i)
+	{
+		if (arr[i] > max)
+		{
+			max = arr[i];
+			num = i;
+		}
+	}
+	cout << "Номер(а) максимального(ых) элемента(ов) " << endl;
+	for (i = 0; i <= count; ++i)
+	{
+		if (max == arr[i])
+			cout << i << " ";
+	}
+	cout << endl;
+}
+void min(int* arr, int& count)
+{
 	int i;
 	int min = arr[0];
 	for (i = 1; i < count; ++i)
@@ -65,62 +64,80 @@ void expand(int& count, int& cap, int*& arr)
 			min = arr[i];
 	}
 	cout << "Минимальный элемент массива " << min << endl;
- }
- void summa(int& count, int*& arr)
- {
-	int i; 
-	int sum = arr[0];
-	for (i = 1; i < count; ++i)
+}
+void summa(int* arr, int& count)
+{
+	int i;
+	int sum = 0;
+	for (i = 0; i < count; ++i)
 		sum = sum + arr[i];
 	cout << "Сумма" << sum << endl;
- }
- void reverse(int& count, int*& arr)
- {
-	 int i;
-	 for (i = count; i >= 0; --i)
-		 cout << arr[i] << " ";
-	 cout << endl;
- }
- void choiсe(int*& arr, int& count, int& in, int& cap)
- {
-	 switch (in)
-	 {
-	 case 0:
-	 {
-		 break;
-	 }
-	 case 1:
-	 {
-		 add1(count, cap, *&arr);
-		 break;
-	 }
-	 case 2:
-	 {
-		 print(count, *&arr);
-		 break;
-	 }
-	 case 3:
-	 {
-		 max(count, *&arr);
-		 break;
-	 }
-	 case 4:
-	 {
-		 min(count, *&arr);
-		 break;
-	 }
-	 case 5:
-	 {
-		 summa(count, *&arr);
-		 break;
-	 }
-	 case 6:
-	 {
-		 reverse(count, *&arr);
-		 break;
-	 }
-	 }
- }
+}
+void reverse(int* arr, int& count)
+{
+	int i;
+	for (i = count; i >= 0; --i)
+		cout << arr[i] << " ";
+	cout << endl;
+}
+void choiсe(int* arr, int& count, int& in, int& cap)
+{
+	switch (in)
+	{
+	case 0:
+	{
+		break;
+	}
+	case 1:
+	{
+		add1(arr, count, cap);
+		break;
+	}
+	case 2:
+	{
+		print(arr, count);
+		break;
+	}
+	case 3:
+	{
+		max(arr, count);
+		break;
+	}
+	case 4:
+	{
+		min(arr, count);
+		break;
+	}
+	case 5:
+	{
+		summa(arr, count);
+		break;
+	}
+	case 6:
+	{
+		reverse(arr, count);
+		break;
+	}
+	}
+}
+void menu(int*& arr, int& count, int& cap)
+{
+
+	int in = -1;
+	while (in != 0)
+	{
+		cout << "0 - Выход из программы" << endl
+			<< "1 - Добавить число в массив" << endl
+			<< "2 - Вывести массив на экран" << endl
+			<< "3 - Найти номер максимального элемента массива"
+			<< endl << "4 - Найти минимальный элемент массива"
+			<< endl << "5 - Посчитать сумму элементов массива"
+			<< endl << "6 - Вывести массив в обратном порядке"
+			<< endl;
+		cin >> in;
+		choiсe(arr, count, in, cap);
+	}
+}
 int main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -137,25 +154,15 @@ int main()
 		{
 			break;
 		}
-		expand(count, cap, arr);
 		arr[count] = x;
 		count++;
+		if (count == cap)
+		{
+			expand(arr, count, cap);
+		}
 	}
 	cout << endl;
-	int in = -1;
-	while (in != 0)
-	{
-			cout << "0 - Выход из программы" << endl 
-			<< "1 - Добавить число в массив" << endl 
-			<< "2 - Вывести массив на экран" << endl 
-			<< "3 - Найти номер максимального элемента массива" 
-			<< endl << "4 - Найти минимальный элемент массива" 
-			<< endl << "5 - Посчитать сумму элементов массива" 
-			<< endl << "6 - Вывести массив в обратном порядке" 
-			<< endl;
-		cin >> in;
-		choiсe(arr, count, in, cap);
-	}
+	menu(arr, count, cap);
 	delete[] arr;
 	return 0;
 }
