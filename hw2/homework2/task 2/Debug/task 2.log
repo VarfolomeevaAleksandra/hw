@@ -1,2 +1,2 @@
 ﻿  Source.cpp
-  task 2.vcxproj -> C:\Users\Саша\source\repos\Project1\hw2\homework2\Debug\task 2.exe
+LINK : fatal error LNK1104: не удается открыть файл "C:\Users\Саша\source\repos\Project1\hw2\homework2\Debug\task 2.exe"
