@@ -1,4 +1,6 @@
 #include<iostream>
+#include<stdlib.h>
+#include<clocale>
 
 using namespace std;
 
@@ -18,7 +20,6 @@ void expand(int* arr, int& cap)
 void add1(int* arr, int& count, int& cap)
 {
 	int x;
-	cout << "Введите число" << endl;
 	cin >> x;
 	if (count == cap)
 	{
@@ -29,8 +30,7 @@ void add1(int* arr, int& count, int& cap)
 }
 void print(int* arr, int& count)
 {
-	int i;
-	for (i = 0; i < count; ++i)
+	for (int i = 0; i < count; ++i)
 		cout << arr[i] << " ";
 	cout << endl;
 }
@@ -38,19 +38,12 @@ int max(int* arr, int& count)
 {
 	int i;
 	int max;
-	max = arr[0];
+	max = 0;
 	for (i = 0; i < count; ++i)
 	{
-		if (arr[i] > max) max = arr[i];
+		if (arr[i] > arr[max]) max = i;
 	}
-	for (i = 0; i < count; ++i)
-	{
-		if (arr[i] = max)
-		{
-			return i;
-			break;
-		}
-	}
+	return i;
 }
 int min(int* arr, int& count)
 {
@@ -78,10 +71,8 @@ void reverse(int* arr, int& count)
 	cout << endl;
 }
 
-void choiсe(int* arr, int& count, int& cap)
+void choiсe(int*& arr, int& count, int& cap, int& in)
 {
-	int in;
-	cin >> in;
 	switch (in)
 	{
 	case 0:
@@ -120,7 +111,7 @@ void choiсe(int* arr, int& count, int& cap)
 	}
 	}
 }
-void menu(int*& arr, int& count, int& cap)
+void menu()
 {
 		cout << "0 - Выход из программы" << endl
 			<< "1 - Добавить число в массив" << endl
@@ -130,18 +121,23 @@ void menu(int*& arr, int& count, int& cap)
 			<< endl << "5 - Посчитать сумму элементов массива"
 			<< endl << "6 - Вывести массив в обратном порядке"
 			<< endl;
-		choiсe(arr, count, cap);
 }
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	int cap;
-	cap = 10;
+	int cap = 10;
 	int* arr = new int[cap];
 	int count = 0;
-	int in = -1;
-	while (in != 0)
-	menu(arr, count, cap);
+	int in = 0;
+	do
+	{
+		system("cls");
+		menu();
+		cin >> in;
+		choiсe(arr, count, cap, in);
+		system("pause");
+	} 
+	while (in != 0);
 	delete[] arr;
 	return 0;
 }

@@ -18,27 +18,30 @@ int* factorial(int*& arr, int*& f, int& count)
 	int i;
 	for (i = 0; i < count; ++i)
 	{
-		for (int j = 1; j < arr[i]; ++j)
+		for (int j = 1; j <= arr[i]; ++j)
 		{
 			if (arr[i] == 0)
 			{
 				f[i] = 1;
 				break;
 			}
-			f[i] = f[i] * j;
+			else
+			{
+				f[i] = f[i] * j;
+			}
 		}
 	}
 	return f;
 }
-int* average(int*& f, int& count)
+int average(int*& f, int& count)
 {
 	int result = 0;
 	for (int i = 0; i < count; ++i)
 	{
 		result = result + f[i];
 	}
-	result = (result / count) + (result % count);
-	return f;
+	result = result / count;
+	return result;
 }
 int main()
 {

@@ -21,13 +21,12 @@ int* add(int*& arr, int& count, int& cap)
 	int b; 
 	int n;
 	int i;
-	cout << "Введите промежуток [a,b] и количество n" << endl;
 	cin >> a >> b >> n;
 	for (i = 0; i < n; ++i)
 	{
 		if (count == cap) expand(arr, cap);
 		arr[count] = rand() % (b - a + 1) + a;
-		++count;
+		count++;
 	}
 	return arr;
 }
@@ -48,8 +47,7 @@ int* pair_reverse(int*& arr, int& count)
 	int c;
 	for (i = 0; i < count; i = i + 2)
 	{
-		if ((i + 1) > count)
-			break;
+		if ((i + 1) > count) break;
 		c = arr[i];
 		arr[i] = arr[i + 1];
 		arr[i + 1] = c;
@@ -71,7 +69,6 @@ int* middle_reverse(int*& arr, int& count)
 {
 	int n;
 	int c;
-	cout << "Введите число, делящее массив" << endl;
 	cin >> n;
 	int n_l = n - 1;
 	int n_r = n;
@@ -95,10 +92,8 @@ int* middle_reverse(int*& arr, int& count)
 	}
 	return arr;
 }
-void choice(int*& arr, int& count, int& cap)
+void choice(int*& arr, int& count, int& cap, int in)
 {
-	int in;
-	cin >> in;
 	switch (in)
 	{
 	case 0:
@@ -132,7 +127,7 @@ void choice(int*& arr, int& count, int& cap)
 	}
 	}
 }
-void menu(int*& arr, int& count, int& cap)
+void menu()
 {
 		cout << "0 - Выход из программы" <<
 			endl << "1 - Добавить в массив n случайных чисел в промежутке от a до b(n, a, b вводится с клавиатуры)" <<
@@ -141,7 +136,6 @@ void menu(int*& arr, int& count, int& cap)
 			endl << "4 - Циклический сдвиг вправо на 1" <<
 			endl << "5 - Развернуть две половинки массива.n - индекс элемента, разделяющего половинки" <<
 			endl;
-		choice(arr, count, cap);
 }
 int main()
 {
@@ -150,9 +144,16 @@ int main()
 	cap = 10;
 	int* arr = new int[cap];
 	int count = 0;
-	int in = -1;
-	while (in != 0)
-	menu(arr, count, cap);
+	int in = 0;
+	do
+	{
+		system("cls");
+		menu();
+		cin >> in;
+		choice(arr, count, cap, in);
+		system("pause");
+	} 
+	while (in != 0);
 	delete[] arr;
 	return 0;
 }
