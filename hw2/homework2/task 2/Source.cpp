@@ -3,25 +3,19 @@
 
 using namespace std;
 
-
-void print(int*& arr, int& count)
+void expand(int*& arr, int& cap)
 {
-	for (int i = 0; i < count; ++i)
-		cout << arr[i] << " ";
-	cout << endl;
-}
-void expand(int*& arr, int& count, int& cap)
-{
-	cap *= 2;
-	int* temp = new int[cap];
-	for (int i = 0; i < count; ++i)
+	int newcap = cap * 2;
+	int* temp = new int[newcap];
+	for (int i = 0; i < cap; ++i)
 	{
 		temp[i] = arr[i];
 	}
+	cap = newcap;
 	delete[] arr;
 	arr = temp;
 }
-void add(int*& arr, int& count, int& cap)
+int* add(int*& arr, int& count, int& cap)
 {
 	int a;
 	int b; 
@@ -31,13 +25,13 @@ void add(int*& arr, int& count, int& cap)
 	cin >> a >> b >> n;
 	for (i = 0; i < n; ++i)
 	{
-		if (count == cap) expand(arr, count, cap);
+		if (count == cap) expand(arr, cap);
 		arr[count] = rand() % (b - a + 1) + a;
 		++count;
 	}
-	print(arr, count);
+	return arr;
 }
-void reverse(int*& arr, int& count)
+int* reverse(int*& arr, int& count)
 {
 	int c = 0;
 	for (int i = 0; i <= (count / 2); ++i)
@@ -46,9 +40,9 @@ void reverse(int*& arr, int& count)
 		arr[i] = arr[count - i];
 		arr[count - i] = c;
 	}
-	print(arr, count);
+	return arr;
 }
-void pair_reverse(int*& arr, int& count)
+int* pair_reverse(int*& arr, int& count)
 {
 	int i;
 	int c;
@@ -60,9 +54,9 @@ void pair_reverse(int*& arr, int& count)
 		arr[i] = arr[i + 1];
 		arr[i + 1] = c;
 	}
-	print(arr, count);
+	return arr;
 }
-void cyclic_shift(int*& arr, int& count)
+int* cyclic_shift(int*& arr, int& count)
 {
 	int t;
 	t = arr[count - 1];
@@ -71,9 +65,9 @@ void cyclic_shift(int*& arr, int& count)
 		arr[j + 1] = arr[j];
 	}
 	arr[0] = t;
-	print(arr, count);
+	return arr;
 }
-void half_reverse(int*& arr, int& count)
+int* middle_reverse(int*& arr, int& count)
 {
 	int n;
 	int c;
@@ -99,48 +93,47 @@ void half_reverse(int*& arr, int& count)
 		n_r++;
 		new_count--;
 	}
-	print(arr, count);
+	return arr;
 }
-void choice(int*& arr, int& count, int& in, int& cap)
+void choice(int*& arr, int& count, int& cap)
 {
+	int in;
+	cin >> in;
 	switch (in)
 	{
 	case 0:
 	{
-		break;
+		exit(0);
 	}
 	case 1:
 	{
-		add(arr, count, cap);
+		cout << add(arr, count, cap) << endl;;
 		break;
 	}
 	case 2:
 	{
-		reverse(arr, count);
+		cout << reverse(arr, count) << endl;;
 		break;
 	}
 	case 3:
 	{
-		pair_reverse(arr, count);
+		cout << pair_reverse(arr, count) << endl;
 		break;
 	}
 	case 4:
 	{
-		cyclic_shift(arr, count);
+		cout << cyclic_shift(arr, count) << endl;
 		break;
 	}
 	case 5:
 	{
-		half_reverse(arr, count);
+		cout << middle_reverse(arr, count) << endl;
 		break;
 	}
 	}
 }
 void menu(int*& arr, int& count, int& cap)
 {
-	int in = -1;
-	while (in != 0)
-	{
 		cout << "0 - Выход из программы" <<
 			endl << "1 - Добавить в массив n случайных чисел в промежутке от a до b(n, a, b вводится с клавиатуры)" <<
 			endl << "2 - Развернуть массив" <<
@@ -148,9 +141,7 @@ void menu(int*& arr, int& count, int& cap)
 			endl << "4 - Циклический сдвиг вправо на 1" <<
 			endl << "5 - Развернуть две половинки массива.n - индекс элемента, разделяющего половинки" <<
 			endl;
-		cin >> in;
-		choice(arr, count, in, cap);
-	}
+		choice(arr, count, cap);
 }
 int main()
 {
@@ -158,24 +149,9 @@ int main()
 	int cap;
 	cap = 10;
 	int* arr = new int[cap];
-	cout << "Введите элементы массива, последняя цифра 0" << endl;
 	int count = 0;
-	while (true)
-	{
-		int x = 0;
-		cin >> x;
-		if (x == 0)
-		{
-			break;
-		}
-		if (count == cap)
-		{
-			expand(arr, count, cap);
-		}
-		arr[count] = x;
-		count++;
-	}
-	cout << endl;
+	int in = -1;
+	while (in != 0)
 	menu(arr, count, cap);
 	delete[] arr;
 	return 0;
