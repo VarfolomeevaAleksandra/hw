@@ -147,7 +147,6 @@ int* unify(int* a, int* b)
 		*(result + i) = *(b + k);
 	}
 	return result;
-	printArray(result);
 }
 
 /// <summary>
@@ -308,7 +307,9 @@ void processChoice(int*& arr1, int*& arr2, int choice)
 		add(arr1, arr2);
 		break;
 	case 6:
-		unify(arr1, arr2);
+		int*temp = unify(arr1, arr2);
+		printArray(temp);
+		deleteArray(temp);
 		break;
 	case 7:
 		int index;
