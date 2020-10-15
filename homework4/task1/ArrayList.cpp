@@ -27,7 +27,7 @@ using namespace std;
 		if ((index > count) or (index < 0)) return false;
 		else return true;
 	}
-	int* ArrayList::expand(int*& data1)
+	void ArrayList::expand(int*& data1)
 	{
 		int* temp = new int(2 * capacity);
 		for (int i = 0; i < count; ++i)
@@ -37,7 +37,6 @@ using namespace std;
 		capacity *= 2;
 		delete[] data1;
 		data1 = temp;
-		return data1;
 	}
 
 	int ArrayList::addInList(int num)
@@ -62,7 +61,7 @@ using namespace std;
 		count++;
 		if (count == capacity)
 		{
-			data = expand(data);
+			expand(data);
 		}
 		return true;
 	}
@@ -79,7 +78,7 @@ using namespace std;
 		count++;
 		if (count == capacity)
 		{
-			data = expand(data);
+			expand(data);
 		}
 		return errors(index);
 	}
