@@ -27,33 +27,18 @@ using namespace std;
 		if ((index > count) or (index < 0)) return false;
 		else return true;
 	}
-	void ArrayList::expand(int*& data1)
+	void ArrayList::expand()
 	{
 		int* temp = new int(2 * capacity);
 		for (int i = 0; i < count; ++i)
 		{
-			temp[i] = data1[i];
+			temp[i] = data[i];
 		}
 		capacity *= 2;
-		delete[] data1;
-		data1 = temp;
+		delete[] data;
+		data = temp;
 	}
 
-	int ArrayList::addInList(int num)
-	{
-		ArrayList b;
-		int i = 0;
-		while (true)
-		{
-			int x = 0;
-			cin >> x;
-			if (x == 0) break;
-			b.data[i] = x;
-			++i;
-
-		}
-		return addAll(num, b);
-	}
 	
 	bool ArrayList::add(int element)
 	{
@@ -61,7 +46,7 @@ using namespace std;
 		count++;
 		if (count == capacity)
 		{
-			expand(data);
+			expand();
 		}
 		return true;
 	}
@@ -78,18 +63,26 @@ using namespace std;
 		count++;
 		if (count == capacity)
 		{
-			expand(data);
+			expand();
 		}
 		return errors(index);
 	}
 
-	
+	bool ArrayList::addAll(ArrayList& list)
+	{
+		for (int i = count; i < count + list.count; ++i)
+		{
+			add(list.data[i - count]);
+		}
+		count += list.count;
+		return true;
+	}
 	
 	bool ArrayList::addAll(int index, ArrayList& list)
 	{
 		for (int i = index; i < index + list.count; ++i)
 		{
-			add(i, list.data[i - index]);
+			add(i, list.data[i - count]);
 		}
 		count += list.count;
 		return errors(index);
@@ -111,7 +104,7 @@ using namespace std;
 		int result = 0;
 		for (int i = 0; i < count; ++i)
 		{
-			if (data[i] = element)
+			if (data[i] == element)
 			{
 				++result;
 				break;

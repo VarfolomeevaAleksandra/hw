@@ -20,9 +20,7 @@ struct ArrayList {
 
 	int errors(int index);
 
-	void expand(int*& data1);
-
-	int addInList(int num);
+	void expand();
 
 	bool add(int element);
 

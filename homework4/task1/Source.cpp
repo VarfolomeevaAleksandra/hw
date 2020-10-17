@@ -17,7 +17,7 @@ void printMenu()
 	cout << "7 - Добавить несколько элементов, начиная с некоторой позиции" << endl;
 }
 
-void processChoice(ArrayList& a, int choice)
+void processChoice(ArrayList& a, ArrayList& b, int choice)
 {
 	switch (choice)
 	{
@@ -61,18 +61,46 @@ void processChoice(ArrayList& a, int choice)
 	break;
 	case 6:
 	{
+		int i;
+		int element;
 		cout << "Введите элементы, закончите нулем" << endl;
-
-		cout << a.addInList(a.count) << endl;;
+		while (element != 0)
+		{
+			if (b.count == b.capacity)
+			{
+				b.expand();
+			}
+			cin >> element;
+			b.data[i] = element;
+			++b.count;
+			++i;
+		}
+		std::cout << a.addAll(a.count, b) << endl;
+		b.clear();
+		
 	}
 	break;
 	case 7:
 	{
+		int element;
 		int index;
+		int i = 0;
 		cout << "Введите индекс" << endl;
 		cin >> index;
 		cout << "Ввдите элементы, закончите нулем" << endl;
-		cout << a.addInList(index) << endl;
+		while ((element != 0) and (b.count < b.capacity))
+		{
+			if (b.count == b.capacity)
+			{
+				b.expand();
+			}
+			cin >> element;
+			b.data[i] = element;
+			++b.count;
+			++i;
+		}
+		cout << a.addAll(index, b) << endl;
+		b.clear();
 	}
 	break;
 	}
@@ -90,7 +118,7 @@ int main()
 		system("cls");
 		printMenu();
 		cin >> choice;
-		processChoice(a, choice);
+		processChoice(a, b, choice);
 		system("pause");
 	} while (choice != 0);
 
