@@ -82,7 +82,7 @@ void processChoice(ArrayList& a, ArrayList& b, int choice)
 	break;
 	case 7:
 	{
-		int element;
+		int element = -1;
 		int index;
 		int i = 0;
 		cout << "¬ведите индекс" << endl;
