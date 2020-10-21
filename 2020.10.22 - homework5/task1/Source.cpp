@@ -41,21 +41,21 @@ void processChoice(ArrayList& a, int choice)
 	{
 		int index1;
 		int index2;
-		int max = a.data[0];
-		int min = a.data[0];
+		int max = a.get(0);
+		int min = a.get(0);
 		for (int i = 0; i < a.length(); ++i)
 		{
-			if (max <= a.data[i])
+			if (max <= a.get(i))
 			{
 				index1 = i;
-				max = a.data[i];
+				max = a.get(i);
 			}
 			for (int j = 0; j < a.length(); ++j)
 			{
-				if (min > a.data[j])
+				if (min > a.get(j))
 				{
 					index2 = j;
-					min = a.data[j];
+					min = a.get(j);
 				}
 			}
 			a.swap(index1, index2);
@@ -68,11 +68,11 @@ void processChoice(ArrayList& a, int choice)
 		ArrayList b(a.length());
 		for (int i = 0; i < a.length(); ++i)
 		{
-			b.data[i] = a.data[i];
+			b.set(i, a.get(i));
 		}
 		for (int j = 0; j < a.length(); ++j)
 		{
-			a.data[j] = b.data[rand() % a.length()];
+			a.set(j, b.get(rand() % a.length()));
 		}
 		a.toString();
 	}
@@ -81,7 +81,7 @@ void processChoice(ArrayList& a, int choice)
 	{
 		for (int i = 0; i < a.length(); ++i)
 		{
-			if (a.data[i] < 0) a.data[i] = 0;
+			if (a.get(i) < 0) a.set(i, 0);
 		}
 		a.toString();
 	}

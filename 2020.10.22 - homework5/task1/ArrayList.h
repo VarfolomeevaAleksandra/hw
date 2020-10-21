@@ -5,11 +5,10 @@ using namespace std;
 
 struct ArrayList
 {
-public:
-	int* data;
 private:
 	int count;
 	int capacity;
+	int* data;
 	char* str;
 
 public:

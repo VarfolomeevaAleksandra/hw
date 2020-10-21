@@ -68,18 +68,21 @@ int ArrayList::errors(int index)
 
 bool ArrayList::add(int index, int element)
 {
-
-	for (int i = count; i > index; --i)
+	if (errors(index) == true)
 	{
-		data[i] = data[i - 1];
+		for (int i = count; i > index; --i)
+		{
+			data[i] = data[i - 1];
+		}
+		data[index] = element;
+		count++;
+		if (count == capacity)
+		{
+			expand();
+		}
+		return errors(index);
 	}
-	data[index] = element;
-	count++;
-	if (count == capacity)
-	{
-		expand();
-	}
-	return errors(index);
+	else return errors(index);
 }
 
 bool ArrayList::addAll(ArrayList& list)
@@ -94,12 +97,16 @@ bool ArrayList::addAll(ArrayList& list)
 
 bool ArrayList::addAll(int index, ArrayList& list)
 {
-	for (int i = index; i < index + list.count; ++i)
+	if (errors(index) == true)
 	{
-		add(i, list.data[i - count]);
+		for (int i = index; i < index + list.count; ++i)
+		{
+			add(i, list.data[i - count]);
+		}
+		count += list.count;
+		return errors(index);
 	}
-	count += list.count;
-	return errors(index);
+	else return errors(index);
 }
 
 
@@ -161,22 +168,30 @@ bool ArrayList::isEmpty()
 
 bool ArrayList::remove(int index)
 {
-	for (int i = index; i < count - 1; ++i)
+	if (errors(index) == true)
 	{
-		data[i] = data[i + 1];
+		for (int i = index; i < count - 1; ++i)
+		{
+			data[i] = data[i + 1];
+		}
+		data[count - 1] = 0;
+		return errors(index);
 	}
-	data[count - 1] = 0;
-	return errors(index);
+	else return errors(index);
 }
 
 
 bool ArrayList::swap(int index1, int index2)
 {
-	int c = 0;
-	c = data[index1];
-	data[index1] = data[index2];
-	data[index2] = c;
-	return((errors(index1) == errors(index2) == true) ? true : false);
+	if (errors(index1) == errors(index2) == true)
+	{
+		int c = 0;
+		c = data[index1];
+		data[index1] = data[index2];
+		data[index2] = c;
+		return errors(index1);
+	}
+	return false;
 }
 
 char* ArrayList::toString()
