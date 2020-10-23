@@ -25,7 +25,7 @@ void processChoice(ArrayList& a, int choice)
 		{
 			a.add(rand() % 90 + 10);
 		}
-		a.toString();
+		cout << a.toString() << endl;
 	}
 	break;
 	case 2:
@@ -34,7 +34,7 @@ void processChoice(ArrayList& a, int choice)
 		{
 			a.add(-(rand() % 90 + 10));
 		}
-		a.toString();
+		cout << a.toString() << endl;
 	}
 	break;
 	case 3:
@@ -59,22 +59,17 @@ void processChoice(ArrayList& a, int choice)
 				}
 			}
 			a.swap(index1, index2);
-			a.toString();
+			cout << a.toString() << endl;
 		}
 		break;
 	}
 	case 4:
 	{
-		ArrayList b(a.length());
 		for (int i = 0; i < a.length(); ++i)
 		{
-			b.set(i, a.get(i));
+			a.swap(i, rand() % a.length());
 		}
-		for (int j = 0; j < a.length(); ++j)
-		{
-			a.set(j, b.get(rand() % a.length()));
-		}
-		a.toString();
+		cout << a.toString() << endl;
 	}
 	break;
 	case 5:
@@ -83,7 +78,7 @@ void processChoice(ArrayList& a, int choice)
 		{
 			if (a.get(i) < 0) a.set(i, 0);
 		}
-		a.toString();
+		cout << a.toString() << endl;
 	}
 	break;
 	}
