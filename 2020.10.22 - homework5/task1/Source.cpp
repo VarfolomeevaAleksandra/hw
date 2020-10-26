@@ -39,30 +39,18 @@ void processChoice(ArrayList& a, int choice)
 	break;
 	case 3:
 	{
-		int index1;
-		int index2;
-		int max = a.get(0);
-		int min = a.get(0);
-		for (int i = 0; i < a.length(); ++i)
+		ArrayList b(a.length());
+		for (int i = 0; i < b.length(); ++i)
 		{
-			if (max <= a.get(i))
+			for (int j = 0; j < b.length(); ++j)
 			{
-				index1 = i;
-				max = a.get(i);
+				if (b.get(i) > b.get(j)) b.swap(i, j);
 			}
-			for (int j = 0; j < a.length(); ++j)
-			{
-				if (min > a.get(j))
-				{
-					index2 = j;
-					min = a.get(j);
-				}
-			}
-			a.swap(index1, index2);
-			cout << a.toString() << endl;
 		}
-		break;
+		a.swap(a.indexOf(b.get(0)), a.indexOf(b.get(b.length()-1)));
+		cout << a.toString() << endl;
 	}
+	break;
 	case 4:
 	{
 		for (int i = 0; i < a.length(); ++i)
