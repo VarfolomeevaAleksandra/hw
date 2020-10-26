@@ -6,13 +6,13 @@ using namespace std;
 
 void printMenu()
 {
-	cout << "ÌÅÍÞ" << endl;
-	cout << "0 - Âûõîä èç ïðîãðàììû" << endl;
-	cout << "1 - Äîáàâèòü â ñïèñîê 10 ñëó÷àéíûõ ïîëîæèòåëüíûõ äâóçíà÷íûõ ÷èñåë è âûâåñòè ñïèñîê" << endl;
-	cout << "2 - Äîáàâèòü â ñïèñîê 10 ñëó÷àéíûõ îòðèöàòåëüíûõ äâóçíà÷íûõ ÷èñåë è âûâåñòè ñïèñîê" << endl;
-	cout << "3 - Ïîìåíÿòü ìåñòàìè ïåðâûé ìèíèìàëüíûé è ïîñëåäíèé ìàêñèìàëüíûé ýëåìåíò è âûâåñòè ñïèñîê" << endl;
-	cout << "4 - Ïåðåìåøàòü âñå ýëåìåíòû ìàññèâà è âûâåñòè ìàññèâ" << endl;
-	cout << "5 - Çàìåíèòü êàæäûé îòðèöàòåëüíûé ýëåìåíò ìàññèâà íà 0" << endl;
+	cout << "МЕНЮ" << endl;
+	cout << "0 - Выход из программы" << endl;
+	cout << "1 - Добавить элемент, введенный с клавиатуры" << endl;
+	cout << "2 - Вывести массив" << endl;
+	cout << "3 - Проверить, является ли массив симметричным" << endl;
+	cout << "4 - Циклический сдвинуть массив на n элементов. n>0 - сдвиг вправо, n<0 - сдвиг влево" << endl;
+	cout << "5 - Проверить, может ли массив стать симметричным, если из него удалить один элемент" << endl;
 }
 
 void processChoice(ArrayList& a, int choice)
@@ -21,52 +21,79 @@ void processChoice(ArrayList& a, int choice)
 	{
 	case 1:
 	{
-		for (int i = 0; i < 11; ++i)
-		{
-			a.add(rand() % 90 + 10);
-		}
-		cout << a.toString() << endl;
+		int element;
+		cin >> element;
+		a.add(element);
 	}
 	break;
 	case 2:
 	{
-		for (int i = 0; i < 11; ++i)
-		{
-			a.add(-(rand() % 90 + 10));
-		}
 		cout << a.toString() << endl;
 	}
 	break;
 	case 3:
 	{
-		ArrayList b(a.length());
-		for (int i = 0; i < b.length(); ++i)
+		int flag = 0;
+		for (int i = 0; i < a.length() / 2; ++i)
 		{
-			for (int j = 0; j < b.length(); ++j)
-			{
-				if (b.get(i) > b.get(j)) b.swap(i, j);
-			}
+			if (a.get(i) != a.get(a.length() - i)) flag = 0;
 		}
-		a.swap(a.indexOf(b.get(0)), a.indexOf(b.get(b.length() - 1)));
-		cout << a.toString() << endl;
+		if (flag == 0)
+		{
+			cout << "yes" << endl;
+		}
+		else
+		{
+			cout << "no" << endl;
+		}
 	}
 	break;
 	case 4:
 	{
-		for (int i = 0; i < a.length(); ++i)
+		ArrayList b(a);
+		int n;
+		cin >> n;
+		n = n % a.length();
+		if (n > 0)
 		{
-			a.swap(i, rand() % a.length());
+			for (int i = 0, j = a.length() - n; i < n; ++i, ++j)
+			{
+				a.set(i, b.get(j));
+			}
+			for (int i = n, j = 0; i < a.length(); ++i, ++j)
+			{
+				a.set(i, b.get(j));
+			}
 		}
-		cout << a.toString() << endl;
+		if (n < 0)
+		{
+			for (int i = a.length() - n, j = 0; i < n; ++i, ++j)
+			{
+				a.set(i, b.get(j));
+			}
+			for (int i = 0, j = n; i < a.length(); ++i, ++j)
+			{
+				a.set(i, b.get(j));
+			}
+		}
 	}
 	break;
 	case 5:
 	{
 		for (int i = 0; i < a.length(); ++i)
 		{
-			if (a.get(i) < 0) a.set(i, 0);
+			ArrayList b(a);
+			b.remove(i);
+			int flag = 0;
+			for (int i = 0; i < b.length() / 2; ++i)
+			{
+				if (b.get(i) != b.get(b.length() - i)) flag = 0;
+			}
+			if (flag == 0)
+			{
+				cout << "yes, number = " << i << endl;
+			}
 		}
-		cout << a.toString() << endl;
 	}
 	break;
 	}

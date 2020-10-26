@@ -21,7 +21,7 @@ ArrayList::~ArrayList()
 	{
 		delete[] str;
 	}
-}+
+}
 
 void ArrayList::expand()
 {
@@ -74,10 +74,6 @@ void ArrayList::addToStr(int& index, int number)
 	index += length;
 }
 
-ArrayList::~ArrayList()
-{
-	delete[] data;;
-}
 
 bool ArrayList::errors(int index)
 {
