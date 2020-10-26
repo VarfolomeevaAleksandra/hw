@@ -56,7 +56,8 @@ void ArrayList::addNumberToStr(int& index, int number)
 
 ArrayList::~ArrayList()
 {
-	delete[] data;;
+	delete[] data;
+	delete str;
 }
 
 int ArrayList::errors(int index)
