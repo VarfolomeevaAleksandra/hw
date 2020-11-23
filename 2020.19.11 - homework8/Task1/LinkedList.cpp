@@ -317,26 +317,26 @@ LinkedList& LinkedList::operator= (const LinkedList& list)
 int LinkedList::indexOf(int element)
 {
     Node* temp = head;
-    int c = 0;
-    for (int i = 0; i < count; i++)
+    int c = -1;
+    for (int i = 0; i < count; ++i)  
     {
-        if (temp->data != element)
+        if (temp->data == element)
         {
-            temp = temp->next;
-        }
-        else
-        {
-            c = 1;
-            return i;
+            c = i;
             break;
         }
-        if (c == 0) return -1;
+        temp = temp->next;
     }
+    if ((c < 0) && (count > 1))
+    {
+        c = (tail->data == element ? count - 1 : c);
+    }
+    return c;
 }
 
 bool LinkedList::contains(int element)
 {
-    return(indexOf(element) == -1 ? false : true);
+    return(indexOf(element) < 0 ? false : true);
 }
 
 bool LinkedList::swap(int index1, int index2)
