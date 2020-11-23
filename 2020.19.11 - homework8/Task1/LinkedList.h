@@ -32,7 +32,7 @@ public:
 	int& operator[](int index);
 	friend std:: ostream& operator<<(std::ostream&, const LinkedList);
 	void operator += (int element);
-	int isEmpty();
+	
 	/// <summary>
 	/// удалить начало списка
 	/// </summary>

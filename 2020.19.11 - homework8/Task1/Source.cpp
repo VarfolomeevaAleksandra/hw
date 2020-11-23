@@ -53,18 +53,21 @@ int main()
 	list2.addToTail(1);
 	list3.addToTail(4);
 
-	/*
+	
 	list1.extract(0);
 	list2.extract(0);
 	list3.extract(2);
-	cout << " list1.extract(0); list2.extract(0); list3.extract(2)" << endl;*/
+	cout << " list1.extract(0); list2.extract(0); list3.extract(2)" << endl;
 	cout << list1 << endl;
 	cout << list2 << endl;
 	cout << list3 << endl;
 	cout << endl;
 
 	// возвращение к изначальному виду
-	
+	list2.add(0, 1);
+	list3.add(2, 3);
+
+
 
 }
 

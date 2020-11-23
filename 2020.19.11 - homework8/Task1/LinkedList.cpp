@@ -291,17 +291,6 @@ int LinkedList::extract(int index)
     --count;
 }
 
-int LinkedList::isEmpty()
-{
-    Node* temp = head;
-    while (temp != nullptr)
-    {
-        Node* node = temp;
-        temp = temp->next;
-        delete node;
-    }
-    return 0;
-}
 
 LinkedList& LinkedList::operator= (const LinkedList& list)
 {
