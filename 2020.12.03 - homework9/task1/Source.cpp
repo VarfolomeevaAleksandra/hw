@@ -10,7 +10,9 @@ using namespace std;
 int extraCharacters(string str)
 {
 	int errorCode = 0;
-	for (int i = 0; str[i] != '\0'; ++i)
+	int j = 0;
+	if (str[0] == '-') j = 1;
+	for (int i = j; str[i] != '\0'; ++i)
 	{
 		if (str[i] == ' ') errorCode = 1;
 		if ((str[i] < '0' or str[i] > '9') && str[i] != '.') errorCode = 1;
