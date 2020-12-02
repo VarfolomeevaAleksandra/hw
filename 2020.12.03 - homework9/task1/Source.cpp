@@ -14,8 +14,22 @@ int extraCharacters(string str)
 	if (str[0] == '-') j = 1;
 	for (int i = j; str[i] != '\0'; ++i)
 	{
-		if (str[i] == ' ') errorCode = 1;
-		if ((str[i] < '0' or str[i] > '9') && str[i] != '.') errorCode = 1;
+		if (str[0] == '.')
+		{
+			errorCode = 1;
+			break;
+		}
+		if (str[i] == ' ')
+		{
+			errorCode = 1;
+			break;
+		}
+
+		if ((str[i] < '0' or str[i] > '9') && str[i] != '.')
+		{
+			errorCode = 1;
+			break;
+		}
 	}
 	return errorCode;
 }
@@ -161,10 +175,12 @@ int intInsteadOfDouble(string& str)
 {
 	int errorCode = 0;
 	int c = 0;
-	for (int i = 0; str[i] != '\0'; ++i)
+	int i;
+	for (i = 0; str[i] != '\0'; ++i)
 	{
 		if (str[i] == '.') c = 1;
 	}
+	if (str[i - 1] == '.') errorCode = 4;
 	if (c == 0) errorCode = 4;
 	return errorCode;
 }
@@ -220,7 +236,7 @@ bool resolveError(string str1, string str2)
 		}
 		if (extraCharacters(str2) == 0 && sizeDouble(str2) == 0 && intInsteadOfDouble(str2) != 0)
 		{
-			cout << text(rand() % 2 + 12);
+			cout << text(rand() % 2 + 12) << endl;;
 		}
 		if (extraCharacters(str1) == 0 && sizeInt(str1) == 0 && doubleInsteadOfInt(str1) != 0)
 		{
@@ -280,7 +296,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	int choice = 0;
 	do
-		{
+		{	
 			cout << text(8) << endl;
 			getline(cin, str1);
 			trim(str1);
@@ -290,5 +306,7 @@ int main()
 			summ(str1, str2);
 			cout << text(10) << endl;
 			cin >> choice;
+			getline(cin, str1);
+			system("cls");
 		} while (choice != 0);
 }
