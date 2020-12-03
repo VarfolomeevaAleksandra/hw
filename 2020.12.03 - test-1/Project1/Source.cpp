@@ -51,7 +51,7 @@ double mySin(double x, int n)
 	double sin = 0;
 	int j = 1;
 	if (x < 0) j = -1;
-	for (int i = 0; (second(x, i)) / factorial(2 * i + 1) >= accuracy(n); ++i)
+	for (int i = 0; (j * second(x, i)) / factorial(2 * i + 1) >= accuracy(n); ++i)
 	{
 		sin = sin + ((first(i) * second(x, i)) / factorial(2 * i + 1));
 	}
